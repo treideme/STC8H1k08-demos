@@ -11,17 +11,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * @file hello.c Hello World project for the STC89C52 chip.
+ * @file hello.c Hello World project for the STC8H1K08 chip.
  * @author Thomas Reidemeister
  */
-#include <mcs51/8051.h>
-
-// Define SFRs for port mode registers
-__sfr __at (0x91) P1M1;
-__sfr __at (0x92) P1M0;
-//__sfr16 __at (0xFE11) P1PU;  // Port 1 Pull-up Resistor Control Register
-//__sfr16 __at (0xFE21) P1SR;  // Port 1 Slew Rate Control Register
-//__sfr16 __at (0xFE29) P1DR;  // Port 1 Drive Current Control Register
+#include "stc8h1k08.h"
 
 static void delay(unsigned int t);
 
@@ -35,6 +28,7 @@ void main() {
 
     // Set drive current to high for all P1 pins
     //P1DR = 0xFF;
+
 
     // Enable fast slew rate for all P1 pins
 //    P1SR = 0xFF;

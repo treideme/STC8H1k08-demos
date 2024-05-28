@@ -11,7 +11,7 @@ stcgal = find_program('stcgal', required : true)
 # Compile commands for sdcc
 cc_args = ['-mmcs51', '--Werror', '--std-c99', '--out-fmt-ihx']
 # Link commands for sdcc
-cc_incs = []
+cc_incs = ['-I'+meson.current_source_dir() + '/inc']
 
 # Flashing arguments for STCGAL
 stcgal_args = ['-P', 'stc8g', '-p', '/dev/ttyUSB0']
