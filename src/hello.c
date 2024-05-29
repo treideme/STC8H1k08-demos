@@ -21,10 +21,18 @@ static void delay(unsigned int t);
 void main() {
   hardware_init();
   // Set all P1 pins as push-pull outputs
-  P1M0 = 0xFF;  // Set all bits of P1M0
-  P1M1 = 0x00;  // Clear all bits of P1M1
-  WKTCL = 0xff; // Set the power-down wake-up clock to be about 1 second
-  WKTCH = 0x87;
+  P1M0 = 0x04; // Set P1.2 as push-pull output
+  P1M1 = 0xFB;  // Clear all bits of P1M1, except P1_2
+  WKTCL = 0xFE; // Set the power-down wake-up clock to be about 10 seconds
+  WKTCH = 0xFF;
+
+  delay(0xfff); // Wait a bit so we can reflash the chip
+
+  P3M0 = 0x00; // Set P1.2 as push-pull output
+  P3M1 = 0xFF; // Clear all bits of P1M1, except P1_2
+
+  P5M0 = 0x00; // Set P1.2 as push-pull output
+  P5M1 = 0xFF; // Clear all bits of P1M1, except P1_2
 
   P1_2 = 1;
 
@@ -33,12 +41,13 @@ void main() {
     delay(0xffff);
     P1_2 = 0x0;
     PCON |= 0x02;  // Enter power-down mode
+    delay(0xffff);
   }
 }
 
 static void delay(unsigned int t) {
   while (t--) {
-    volatile int i = 10;
+    volatile int i = 100;
     while (i--);
   }
 }

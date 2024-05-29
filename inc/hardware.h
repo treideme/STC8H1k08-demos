@@ -35,6 +35,7 @@
 #include "stc8h.h"
 
 #define __CONF_CLKDIV 0x00
+#define __CONF_IRCBAND 0x00 // 20MHz Band
 
 void hardware_init();
 

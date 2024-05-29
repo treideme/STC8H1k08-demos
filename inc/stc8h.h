@@ -146,8 +146,8 @@ SFR(P2M1, 0x95);          ///< Port 2 mode register 1
 SFR(P2M0, 0x96);          ///< Port 2 mode register 0
 SFR(S2CON, 0x9A);         ///< UART 2 control register
 SFR(S2BUF, 0x9B);         ///< UART 2 data buffer register
-SFR(IRC8M, 0x9E);         ///< IRC band selection detection
-SFR(LIRTRIM, 0x9F);       ///< IRC frequency trim register
+SFR(IRCBAND, 0x9D);       ///< IRC band selection register
+SFR(LIRTRIM, 0x9E);       ///< IRC band selection detection
 SFR(INTRIM, 0x9F);        ///< IRC frequency adjustment register
 SFR(BUS_SPEED, 0xA1);     ///< Bus speed control register
   SBIT(EADC, 0xA8, 5);    ///< Interrupt enable ADC

@@ -19,9 +19,15 @@
 void hardware_init(void) {
   SFRX_ON();
   int i = 5;
+  if (IRCBAND != (__CONF_IRCBAND)) {
+    IRCBAND = (__CONF_IRCBAND);
+    while (--i); // Wait a while after clock changed, or it may block the main process
+  }
+  i = 5;
   if (CLKDIV != (__CONF_CLKDIV)) {
     CLKDIV = (__CONF_CLKDIV);
     while (--i); // Wait a while after clock changed, or it may block the main process
   }
+
   SFRX_OFF();
 }
