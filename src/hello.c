@@ -23,17 +23,23 @@ void main() {
   // Set all P1 pins as push-pull outputs
   P1M0 = 0xFF;  // Set all bits of P1M0
   P1M1 = 0x00;  // Clear all bits of P1M1
+  WKTCL = 0xff; // Set the power-down wake-up clock to be about 1 second
+  WKTCH = 0x87;
+
+  P1_2 = 1;
 
   while (1) {
-    P1 = 0xFF;  // Set all P1 pins high, turn the LEDs on
-    delay(50000); // Delay
-    P1 = 0x00;  // Set all P1 pins low, turn the LEDs off
-    delay(50000); // Delay
+    P1_2 = 0x1;  // Toggle P1.2
+    delay(0xffff);
+    P1_2 = 0x0;
+    PCON |= 0x02;  // Enter power-down mode
   }
 }
 
 static void delay(unsigned int t) {
-  while (t--)
-    ;
+  while (t--) {
+    volatile int i = 10;
+    while (i--);
+  }
 }
 
