@@ -11,29 +11,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * @file hello.c Hello World project for the STC8H1K08 chip.
+ * @file hardware.c Common Routines for Hardware Configuration.
  * @author Thomas Reidemeister
  */
 #include "hardware.h"
 
-static void delay(unsigned int t);
-
-void main() {
-  hardware_init();
-  // Set all P1 pins as push-pull outputs
-  P1M0 = 0xFF;  // Set all bits of P1M0
-  P1M1 = 0x00;  // Clear all bits of P1M1
-
-  while (1) {
-    P1 = 0xFF;  // Set all P1 pins high, turn the LEDs on
-    delay(50000); // Delay
-    P1 = 0x00;  // Set all P1 pins low, turn the LEDs off
-    delay(50000); // Delay
+void hardware_init(void) {
+  SFRX_ON();
+  int i = 5;
+  if (CLKDIV != (__CONF_CLKDIV)) {
+    CLKDIV = (__CONF_CLKDIV);
+    while (--i); // Wait a while after clock changed, or it may block the main process
   }
+  SFRX_OFF();
 }
-
-static void delay(unsigned int t) {
-  while (t--)
-    ;
-}
-

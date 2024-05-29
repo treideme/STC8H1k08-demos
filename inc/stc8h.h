@@ -71,6 +71,10 @@
 #define DMA_LCM_VECTOR  45   ///< 0x1D3 DMA_LCM interrupt
 #define LCM_VECTOR      46   ///< 0x1DB LCM interrupt
 
+// XData SFR Switch
+#define SFRX_ON()             (PSW1 |= 0x80)
+#define SFRX_OFF()            (PSW2 &= ~0x80)
+
 /******************************************************************************\
  * Public memory declarations
 \******************************************************************************/
@@ -146,6 +150,8 @@ SFR(IRC8M, 0x9E);         ///< IRC band selection detection
 SFR(LIRTRIM, 0x9F);       ///< IRC frequency trim register
 SFR(INTRIM, 0x9F);        ///< IRC frequency adjustment register
 SFR(BUS_SPEED, 0xA1);     ///< Bus speed control register
+  SBIT(EADC, 0xA8, 5);    ///< Interrupt enable ADC
+  SBIT(ELVD, 0xA8, 6);    ///< Interrupt enable Low Voltage Detect
 SFR(SADDR, 0xA9);         ///< UART1 slave address register
 SFR(WKTCL, 0xAA);         ///< Wake-up Timer Control Register Low Byte
 SFR(WKTCH, 0xAB);         ///< Wake-up Timer Control Register High Byte
@@ -164,7 +170,15 @@ SFR(SADEN, 0xB9);         ///< UART1 slave address enable register
 SFR(ADC_CONTR, 0xBC);     ///< ADC control register
 SFR(ADC_RES, 0xBD);       ///< ADC result high byte
 SFR(ADC_RESL, 0xBE);      ///< ADC result low byte
-SFR(P4, 0xBF);            ///< Port 4
+SFR(P4, 0xC0);            ///< Port 4
+  SBIT(P4_0, 0xC0, 0);    ///< Port 4 pin 0
+  SBIT(P4_1, 0xC0, 1);    ///< Port 4 pin 1
+  SBIT(P4_2, 0xC0, 2);    ///< Port 4 pin 2
+  SBIT(P4_3, 0xC0, 3);    ///< Port 4 pin 3
+  SBIT(P4_4, 0xC0, 4);    ///< Port 4 pin 4
+  SBIT(P4_5, 0xC0, 5);    ///< Port 4 pin 5
+  SBIT(P4_6, 0xC0, 6);    ///< Port 4 pin 6
+  SBIT(P4_7, 0xC0, 7);    ///< Port 4 pin 7
 SFR(IAP_DATA, 0xC2);      ///< IAP Flash Data Register
 SFR(IAP_ADDRH, 0xC3);     ///< IAP Flash Address High Byte
 SFR(IAP_ADDRL, 0xC4);     ///< IAP Flash Address Low Byte
@@ -172,6 +186,14 @@ SFR(IAP_CMD, 0xC5);       ///< IAP Flash Command Register
 SFR(IAP_TRIG, 0xC6);      ///< IAP Flash Trigger Register
 SFR(IAP_CONTR, 0xC7);     ///< IAP Control Register
 SFR(P5, 0xC8);            ///< Port 5
+  SBIT(P5_0, 0xC8, 0);    ///< Port 5 pin 0
+  SBIT(P5_1, 0xC8, 1);    ///< Port 5 pin 1
+  SBIT(P5_2, 0xC8, 2);    ///< Port 5 pin 2
+  SBIT(P5_3, 0xC8, 3);    ///< Port 5 pin 3
+  SBIT(P5_4, 0xC8, 4);    ///< Port 5 pin 4
+  SBIT(P5_5, 0xC8, 5);    ///< Port 5 pin 5
+  SBIT(P5_6, 0xC8, 6);    ///< Port 5 pin 6
+  SBIT(P5_7, 0xC8, 7);    ///< Port 5 pin 7
 SFR(P5M1, 0xC9);          ///< Port 5 mode register 1
 SFR(P5M0, 0xCA);          ///< Port 5 mode register 0
 SFR(P6M1, 0xCB);          ///< Port 6 mode register 1
@@ -196,9 +218,27 @@ SFR(DPL1, 0xE4);          ///< 2nd Data pointer low byte
 SFR(DPH1, 0xE5);          ///< 2nd Data pointer high byte
 SFR(CMPCR1, 0xE6);        ///< Comparator Control Register 1
 SFR(CMPCR2, 0xE7);        ///< Comparator Control Register 2
+SFR(P6, 0xE8);            ///< Port 6
+  SBIT(P6_0, 0xE8, 0);    ///< Port 6 pin 0
+  SBIT(P6_1, 0xE8, 1);    ///< Port 6 pin 1
+  SBIT(P6_2, 0xE8, 2);    ///< Port 6 pin 2
+  SBIT(P6_3, 0xE8, 3);    ///< Port 6 pin 3
+  SBIT(P6_4, 0xE8, 4);    ///< Port 6 pin 4
+  SBIT(P6_5, 0xE8, 5);    ///< Port 6 pin 5
+  SBIT(P6_6, 0xE8, 6);    ///< Port 6 pin 6
+  SBIT(P6_7, 0xE8, 7);    ///< Port 6 pin 7
 SFR(USBDAT, 0xEC);        ///< USB Data register high byte
 SFR(IP3H, 0xF7);          ///< 3rd Interrupt Priority register high byte
 SFR(AUXINTF, 0xEF);       ///< Extended External Interrupt Flag Register
+SFR(P7, 0xF8);            ///< Port 7
+  SBIT(P7_0, 0xF8, 0);    ///< Port 7 pin 0
+  SBIT(P7_1, 0xF8, 1);    ///< Port 7 pin 1
+  SBIT(P7_2, 0xF8, 2);    ///< Port 7 pin 2
+  SBIT(P7_3, 0xF8, 3);    ///< Port 7 pin 3
+  SBIT(P7_4, 0xF8, 4);    ///< Port 7 pin 4
+  SBIT(P7_5, 0xF8, 5);    ///< Port 7 pin 5
+  SBIT(P7_6, 0xF8, 6);    ///< Port 7 pin 6
+  SBIT(P7_7, 0xF8, 7);    ///< Port 7 pin 7
 SFR(IAP_TPS, 0xF9);       ///< IAP Waiting Time Control Register
 SFR(CLKDIV, 0xFD);        ///< Clock Divider Control Register
 SFR(RSTCFG, 0xFF);        ///< Reset Configuration Register

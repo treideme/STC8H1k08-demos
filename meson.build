@@ -24,7 +24,7 @@ compiler = generator(cc,
 
 # Laundry list of example
 progs = [
-    ['hello', 'hello.hex', ['src/hello.c'], 'Hello World Example'],
+    ['hello', 'hello.hex', ['src/hello.c', 'src/hardware.c'], 'Hello World Example'],
 ]
 
 # Build automation
