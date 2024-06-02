@@ -11,34 +11,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * @file hello.c Hello World project for the STC8H1K08 chip.
+ * @file usart.h
+ * @brief USART Driver
  * @author Thomas Reidemeister
+ *
  */
-#include "hardware.h"
-#include "usart.h"
+#ifndef USART_H
+#define USART_H
 
-static void delay(unsigned int t);
+#include "stc8h.h"
 
-void main() {
-  hardware_init();
+/******************************************************************************\
+ * Public macros
+\******************************************************************************/
 
-  usart0_send_str("Hello World!\n\r");
+void usart0_init();
+void usart0_send(char dat);
+void usart0_send_str(char *dat);
 
-  P1_0 = 0;
-  WKTCL = 0xFE; // Set the power-down wake-up clock to be about 10 seconds
-  WKTCH = 0x87;
-
-  while (1) {
-    PCON |= 0x02;  // Enter power-down mode
-    P1_0 = (P1_0)?0:1;  // Toggle P1.0
-    P1_1 = (P1_1)?0:1;  // Toggle P1.1
-  }
-}
-
-static void delay(unsigned int t) {
-  while (t--) {
-    volatile int i = 0xFFF;
-    while (i--);
-  }
-}
-
+#endif // USART_H

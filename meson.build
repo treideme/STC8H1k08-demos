@@ -9,7 +9,7 @@ cc = find_program('sdcc', required : true)
 stcgal = find_program('stcgal', required : true)
 
 # Compile commands for sdcc
-cc_args = ['-mmcs51', '--Werror', '--std-c99', '--out-fmt-ihx']
+cc_args = ['-mmcs51', '--Werror', '--std-c2x', '--out-fmt-ihx']
 # Link commands for sdcc
 cc_incs = ['-I'+meson.current_source_dir() + '/inc']
 
@@ -24,7 +24,10 @@ compiler = generator(cc,
 
 # Laundry list of example
 progs = [
-    ['hello', 'hello.hex', ['src/hello.c', 'src/hardware.c'], 'Hello World Example'],
+    ['hello', 'hello.hex', ['src/hello.c',
+                            'src/hardware.c',
+                            'src/usart.c'],
+     'Hello World Example'],
 ]
 
 # Build automation

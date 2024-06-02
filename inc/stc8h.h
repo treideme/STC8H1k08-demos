@@ -240,12 +240,11 @@ SFR(P7, 0xF8);            ///< Port 7
   SBIT(P7_6, 0xF8, 6);    ///< Port 7 pin 6
   SBIT(P7_7, 0xF8, 7);    ///< Port 7 pin 7
 SFR(IAP_TPS, 0xF9);       ///< IAP Waiting Time Control Register
-SFR(CLKDIV, 0xFD);        ///< Clock Divider Control Register
 SFR(RSTCFG, 0xFF);        ///< Reset Configuration Register
 
 // XSFR
 SFRX(CKSEL, 0xFE00);      ///< Clock Select Register
-SFRX(CLKGIV, 0xFE01);     ///< Clock Divide Register
+SFRX(CLKDIV, 0xFE01);     ///< Clock Divide Register
 SFRX(HIRCCR, 0xFE02);     ///< Internal high-speed oscillator Control Register
 SFRX(XOSCCR, 0xFE03);     ///< External Oscillator Control Register
 SFRX(IRC32KCR, 0xFE04);   ///< Internal 32K Oscillator Control Register
