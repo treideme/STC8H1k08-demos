@@ -6,10 +6,15 @@ project('STC8H1K08 Samples',
 
 # Use SDCC as compiler and linker
 cc = find_program('sdcc', required : true)
-stcgal = find_program('stcgal', required : true)
+stcgal = find_program('stcgal', required : true) # Install requirements.txt and run from venv
 
 # Compile commands for sdcc
-cc_args = ['-mmcs51', '--Werror', '--std-c2x', '--out-fmt-ihx']
+cc_args = ['-mmcs51',
+           '--Werror',
+           '--std-c2x',
+           '--out-fmt-ihx',
+           '--opt-code-size',
+           '--fomit-frame-pointer']
 # Link commands for sdcc
 cc_incs = ['-I'+meson.current_source_dir() + '/inc']
 
@@ -26,7 +31,8 @@ compiler = generator(cc,
 progs = [
     ['hello', 'hello.hex', ['src/hello.c',
                             'src/hardware.c',
-                            'src/usart.c'],
+                            'src/usart.c',
+                            'src/putchar.c'],
      'Hello World Example'],
 ]
 

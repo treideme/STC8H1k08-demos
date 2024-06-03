@@ -14,6 +14,8 @@
  * @file hello.c Hello World project for the STC8H1K08 chip.
  * @author Thomas Reidemeister
  */
+#include <stdint.h>
+#include <stdio.h>
 #include "hardware.h"
 #include "usart.h"
 
@@ -21,8 +23,13 @@ static void delay(unsigned int t);
 
 void main() {
   hardware_init();
-
-  usart0_send_str("Hello World!\n\r");
+  printf("Hello World!\r\n");
+  // Chip ID
+  for(int i = 0; i < 7; i++) {
+    printf_tiny("CID: %x = %x\r\n", i, CHIPID00(SERIES_K08 + i));
+  }
+  printf_tiny("IRC: %x\r\n", IRCBAND);
+  printf_tiny("CLD: %x\r\n", CLKDIV);
 
   P1_0 = 0;
   WKTCL = 0xFE; // Set the power-down wake-up clock to be about 10 seconds

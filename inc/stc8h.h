@@ -17,6 +17,7 @@
 #ifndef STC8H1_H
 #define STC8H1_H
 
+#include <stdint.h>
 #include <mcs51/compiler.h>
 #include <mcs51/8051.h>
 
@@ -72,7 +73,7 @@
 #define LCM_VECTOR      46   ///< 0x1DB LCM interrupt
 
 // XData SFR Switch
-#define SFRX_ON()             (PSW1 |= 0x80)
+#define SFRX_ON()             (PSW2 |= 0x80)
 #define SFRX_OFF()            (PSW2 &= ~0x80)
 
 /******************************************************************************\
@@ -99,39 +100,33 @@ SFRX(IRC32KCR, 0xFE04);   ///< Internal 32KHz Oscillator control register
 SFRX(MCLKOCR, 0xFE05);    ///< Main clock output control register
 SFRX(X32KCR, 0xFE08);     ///< External 32KHz Oscillator control register
 
-// Chip ID
-SFRX(CHIPID00, 0xFDE0);   ///< Globally Unique ID Number (0th byte)
-SFRX(CHIPID01, 0xFDE1);   ///< Globally Unique ID Number (1st byte)
-SFRX(CHIPID02, 0xFDE2);   ///< Globally Unique ID Number (2nd byte)
-SFRX(CHIPID03, 0xFDE3);   ///< Globally Unique ID Number (3rd byte)
-SFRX(CHIPID04, 0xFDE4);   ///< Globally Unique ID Number (4th byte)
-SFRX(CHIPID05, 0xFDE5);   ///< Globally Unique ID Number (5th byte)
-SFRX(CHIPID06, 0xFDE6);   ///< Globally Unique ID Number (6th byte)
-SFRX(CHIPID07, 0xFDE7);   ///< Internal 1.19V reference signal source (high byte)
-SFRX(CHIPID08, 0xFDE8);   ///< Internal 1.19V reference signal source (low byte)
-SFRX(CHIPID09, 0xFDE9);   ///< 32K Power-down wake-up timer frequency (high byte)
-SFRX(CHIPID10, 0xFDEA);   ///< 32K Power-down wake-up timer frequency (low byte)
-SFRX(CHIPID11, 0xFDEB);   ///< IRC parameter of 22.1184MHz (27M band)
-SFRX(CHIPID12, 0xFDEC);   ///< IRC parameter of 24MHz (27M band)
-SFRX(CHIPID13, 0xFDED);   ///< IRC parameter of 20MHz (27M band)
-SFRX(CHIPID14, 0xFDEE);   ///< IRC parameter of 27MHz (27M band)
-SFRX(CHIPID15, 0xFDEF);   ///< IRC parameter of 30MHz (27M band)
-SFRX(CHIPID16, 0xFDF0);   ///< IRC parameter of 33.1776MHz (27M band)
-SFRX(CHIPID17, 0xFDF1);   ///< IRC parameter of 35MHz (44M band)
-SFRX(CHIPID18, 0xFDF2);   ///< IRC parameter of 36.864MHz (44M band)
-SFRX(CHIPID19, 0xFDF3);   ///< IRC parameter of 40MHz (44M band)
-SFRX(CHIPID20, 0xFDF4);   ///< IRC parameter of 44.2368MHz (44M band)
-SFRX(CHIPID21, 0xFDF5);   ///< VRTRIM parameter of 6M band
-SFRX(CHIPID22, 0xFDF6);   ///< VRTRIM parameter of 10M band
-SFRX(CHIPID23, 0xFDF7);   ///< VRTRIM parameter of 27M band
-SFRX(CHIPID24, 0xFDF8);   ///< VRTRIM parameter of 44M band
-SFRX(CHIPID25, 0xFDF9);   ///< Reserved
-SFRX(CHIPID26, 0xFDFA);   ///< User program space end address (high byte)
-SFRX(CHIPID27, 0xFDFB);   ///< Chip test time (year)
-SFRX(CHIPID28, 0xFDFC);   ///< Chip test time (month)
-SFRX(CHIPID29, 0xFDFD);   ///< Chip test time (day)
-SFRX(CHIPID30, 0xFDFE);   ///< Chip package form number
-SFRX(CHIPID31, 0xFDFF);   ///< Reserved
+// ROM ID Settings
+#define READ_CODE8(__ADDR__) (*(uint8_t volatile __code *)(__ADDR__))
+#define READ_CODE16(__ADDR__) (*(uint16_t volatile __code *)(__ADDR__))
+
+// Flash size
+#define SERIES_K08 0x2000u
+#define SERIES_K12 0x3000u
+#define SERIES_K16 0x4000u
+#define SERIES_K17 0x4400u
+#define SERIES_K24 0x6000u
+#define SERIES_K28 0x7000u
+#define SERIES_K33 0x8000u
+
+// Note these have to be enabled in the utility "Add reset code in front of ID" in util, no option in stcgal
+#define IRC24M(SERIES) READ_CODE8(SERIES - 0x0Du)     ///< IRC parameter of 24MHz (20M band)
+#define IRC22M(SERIES) READ_CODE8(SERIES - 0x0Cu)     ///< IRC parameter of 22.1184MHz (20M band)
+#define WKUP_FREQ(SERIES) READ_CODE16(SERIES - 0x0Bu) ///< 32K Power-down wake-up timer frequency (high byte)
+#define VREF(SERIES) READ_CODE16(SERIES - 0x09u)      ///< Internal 1.19V reference signal source (high byte)
+
+// Only this is available by default
+#define CHIPID00(SERIES) READ_CODE8(SERIES - 0x07u)   ///< Globally Unique ID Number (0th byte)
+#define CHIPID01(SERIES) READ_CODE8(SERIES - 0x06u)   ///< Globally Unique ID Number (1st byte)
+#define CHIPID02(SERIES) READ_CODE8(SERIES - 0x05u)   ///< Globally Unique ID Number (2nd byte)
+#define CHIPID03(SERIES) READ_CODE8(SERIES - 0x04u)   ///< Globally Unique ID Number (3rd byte)
+#define CHIPID04(SERIES) READ_CODE8(SERIES - 0x03u)   ///< Globally Unique ID Number (4th byte)
+#define CHIPID05(SERIES) READ_CODE8(SERIES - 0x02u)   ///< Globally Unique ID Number (5th byte)
+#define CHIPID06(SERIES) READ_CODE8(SERIES - 0x01u)   ///< Globally Unique ID Number (6th byte)
 
 SFR(AUXR, 0x8E);          ///< Auxiliary register
 SFR(S4CON, 0x84);         ///< UART 4 control register

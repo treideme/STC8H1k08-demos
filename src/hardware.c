@@ -38,21 +38,23 @@ void hardware_init(void) {
   PSW1 = CONF_PSW1;
   PSW2 = CONF_PSW2;
 
+  // Auxiliary register configuration
+  AUXR = CONF_AUXR;
+
   // Clock configuration
   SFRX_ON();
   int i = 5;
-  if (IRCBAND != (CONF_CLKDIV)) {
-    IRCBAND = (CONF_CLKDIV);
+  if (IRCBAND != (CONF_IRCBAND)) {
+    IRCBAND = (CONF_IRCBAND);
     while (--i); // Wait a while after clock changed, or it may block the main process
   }
   i = 5;
-  if (CLKDIV != (CONF_IRCBAND)) {
-    CLKDIV = (CONF_IRCBAND);
+  if (CLKDIV != (CONF_CLKDIV)) {
+    CLKDIV = (CONF_CLKDIV);
     while (--i); // Wait a while after clock changed, or it may block the main process
   }
   SFRX_OFF();
 
   usart0_init();
   EA = 1;
-  ES = 1;
 }

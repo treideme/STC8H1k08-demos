@@ -11,27 +11,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * @file usart.h
- * @brief USART Driver
+ * @file putchar.h
+ * @brief Putchar wrapper to enable printf_xxx.
  * @author Thomas Reidemeister
  *
  */
-#ifndef USART_H
-#define USART_H
-
-#include "stc8h.h"
-
-/******************************************************************************\
- * Public macros
-\******************************************************************************/
+#ifndef PUTCHAR_H
+#define PUTCHAR_H
 
 /******************************************************************************\
  * Function Prototypes
 \******************************************************************************/
 
-void usart0_init();
-void usart0_send(char dat);
-void usart0_send_str(char *dat);
-void usart0_isr() __interrupt (SI0_VECTOR);
+int putchar(int char);
 
-#endif // USART_H
+#endif // PUTCHAR_H

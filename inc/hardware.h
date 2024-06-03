@@ -38,9 +38,10 @@
  * Public macros
 \******************************************************************************/
 
-#define CONF_CLKDIV  0x00
-#define CONF_IRCBAND 0x00 // 20MHz Band
-#define FOSC         20000000
+#define CONF_IRCBAND 0x00                 ///< 20MHz Band IRC, 0x00 = 20MHz , 0x01 = 35MHz +/- trim
+#define FIRC         22118400UL           ///< Target value for internal RC OSCILLATOR
+#define CONF_CLKDIV  0x02                 ///< 1:2
+#define FOSC         (FIRC / CONF_CLKDIV) ///< System clock frequency
 
 #define CONF_PM0M0 \
   0b00000011 /**< Port 0 mode register 0: P0.0 and P0.1 are push-pull outputs, rest are quasi-bidirectional
@@ -119,7 +120,7 @@
 */
 
 #define CONF_SCON0 \
-  0b00000000 /**< UART control register 0
+  0b01000000 /**< UART control register 0
     00000000 = reset value
     ||||||||
     |||||||+-- RI     : Receive interrupt flag
@@ -169,8 +170,9 @@
     01        | P3.6 | P3.7    01         | P2.2 | P2.3 | P2.4 | P2.5
     10        | P1.6 | P1.7    10         | P5.4 | P4.0 | P4.1 | P4.3
     11        | P4.3 | P4.4    11         | P3.5 | P3.4 | P3.3 | P3.2
-
 */
+
+
 
 #define CONF_PSW2 \
   0b00000000 /**< Peripheral Port Switch Register 2
@@ -192,8 +194,26 @@
 
 */
 
+#define CONF_AUXR \
+  0b01000000 /**< Auxiliary register
+    00000000 = reset value
+    ||||||||
+    |||||||+-- S1ST2     : 0 Select Timer 1 as the baud-rate generator of UART1, 1 Select Timer 2 as the baud-rate generator of UART1
+    ||||||+--- EXTRAM    : External RAM enable (0 = enabled)
+    |||||+---- T2x12     : 0 The clock source of T2 is SYSclk/12, 1 The clock source of T2 is SYSclk/2
+    ||||+----- T2_CT     : T2 is used as a timer, 0 = timer, 1 = counter
+    |||+------ T2R       : T2 run control bit (1 = enable)
+    ||+------- UART_M0x6 : 0 The baud-rate of UART in mode 0 is SYSclk/12, 1 The baud-rate of UART in mode 0 is SYSclk/2
+    |+-------- T1x12     : 0 The clock source of T1 is SYSclk/12, 1 The clock source of T1 is SYSclk/2
+    +--------- T0x12     : 0 The clock source of T0 is SYSclk/12, 1 The clock source of T0 is SYSclk/2
+*/
+
 #define BAUDRATE 115200
 #define BRT (65536 - FOSC / BAUDRATE / 4)
+
+/******************************************************************************\
+ * Function Prototypes
+\******************************************************************************/
 
 void hardware_init();
 
