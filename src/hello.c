@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include "hardware.h"
 #include "usart.h"
+#include "i2c.h"
 
 static void delay(unsigned int t);
 
@@ -30,6 +31,17 @@ void main() {
   }
   printf_tiny("IRC: %x\r\n", IRCBAND);
   printf_tiny("CLD: %x\r\n", CLKDIV);
+
+  // FIXME: I2C
+  printf_tiny("before i2c\r\n");
+  SFRX_ON();
+  i2c_start();
+  printf_tiny("after i2c start\r\n");
+  i2c_send(0xa6);
+  printf_tiny("send address\r\n");
+  i2c_recv_ack();
+  printf_tiny("after recv ack\r\n");
+  SFRX_OFF();
 
   P1_0 = 0;
   WKTCL = 0xFE; // Set the power-down wake-up clock to be about 10 seconds

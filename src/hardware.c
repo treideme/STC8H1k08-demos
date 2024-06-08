@@ -17,6 +17,7 @@
 #include <stdint.h>
 #include "hardware.h"
 #include "usart.h"
+#include "i2c.h"
 
 void hardware_init(void) {
   // Pin configuration
@@ -56,5 +57,6 @@ void hardware_init(void) {
   SFRX_OFF();
 
   usart0_init();
+  i2c_init();
   EA = 1;
 }

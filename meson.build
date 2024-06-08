@@ -32,7 +32,8 @@ progs = [
     ['hello', 'hello.hex', ['src/hello.c',
                             'src/hardware.c',
                             'src/usart.c',
-                            'src/putchar.c'],
+                            'src/putchar.c',
+                            'src/i2c.c'],
      'Hello World Example'],
 ]
 

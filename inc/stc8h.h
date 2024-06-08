@@ -37,40 +37,18 @@
 #define IE2_VECTOR      10   ///< 0x53 INT2 
 #define IE3_VECTOR      11   ///< 0x5B INT3
 #define TF2_VECTOR      12   ///< 0x63 Timer2
-#define IE4_VECTOR      13   ///< 0x6B INT4
-#define SI2_VECTOR      14   ///< 0x73 UART3
-#define IE5_VECTOR      15   ///< 0x7B INT5
-#define TF3_VECTOR      16   ///< 0x83 Timer3
-#define SI3_VECTOR      17   ///< 0x8B UART4
-#define TF4_VECTOR      18   ///< 0x93 Timer4
-#define CMP_VECTOR      19   ///< 0x9B CMP
-#define I2C_VECTOR      20   ///< 0xA3 I2C
-#define USB_VECTOR      21   ///< 0xAB USB
-#define PWMA_VECTOR     22   ///< 0xB3 PWMA
-#define PWMB_VECTOR     23   ///< 0xBB PWMB
-#define TKS_VECTOR      24   ///< 0xC3 TKSU
-#define RTC_VECTOR      25   ///< 0xCB RTC
-#define P0_VECTOR       26   ///< 0x123 P0 interrupt
-#define P1_VECTOR       27   ///< 0x133 P1 interrupt
-#define P2_VECTOR       28   ///< 0x13B P2 interrupt
-#define P3_VECTOR       29   ///< 0x143 P3 interrupt
-#define P4_VECTOR       30   ///< 0x14B P4 interrupt
-#define P5_VECTOR       31   ///< 0x153 P5 interrupt
-#define P6_VECTOR       32   ///< 0x15B P6 interrupt
-#define P7_VECTOR       33   ///< 0x163 P7 interrupt
-#define DMA_M2M_VECTOR  34   ///< 0x17B DMA_M2M interrupt
-#define DMA_ADC_VECTOR  35   ///< 0x183 DMA_ADC interrupt
-#define DMA_SPI_VECTOR  36   ///< 0x18B DMA_SPI interrupt
-#define DMA_UR1T_VECTOR 37   ///< 0x193 DMA_UR1T interrupt
-#define DMA_UR1R_VECTOR 38   ///< 0x19B DMA_UR1R interrupt
-#define DMA_UR2T_VECTOR 39   ///< 0x1A3 DMA_UR2T interrupt
-#define DMA_UR2R_VECTOR 40   ///< 0x1AB DMA_UR2R interrupt
-#define DMA_UR3T_VECTOR 41   ///< 0x1B3 DMA_UR3T interrupt
-#define DMA_UR3R_VECTOR 42   ///< 0x1BB DMA_UR3R interrupt
-#define DMA_UR4T_VECTOR 43   ///< 0x1C3 DMA_UR4T interrupt
-#define DMA_UR4R_VECTOR 44   ///< 0x1CB DMA_UR4R interrupt
-#define DMA_LCM_VECTOR  45   ///< 0x1D3 DMA_LCM interrupt
-#define LCM_VECTOR      46   ///< 0x1DB LCM interrupt
+#define IE4_VECTOR      16   ///< 0x83 INT4
+#define SI3_VECTOR      17   ///< 0x8B UART3
+#define SI4_VECTOR      18   ///< 0x93 UART4
+#define TF3_VECTOR      19   ///< 0x9B Timer3
+#define TF4_VECTOR      20   ///< 0xA3 Timer4
+#define CMP_VECTOR      21   ///< 0xAB Comparator
+#define I2C_VECTOR      24   ///< 0xC3 I2C
+#define USB_VECTOR      25   ///< 0xCB USB
+#define PWMA_VECTOR     26   ///< 0xD3 PWMA
+#define PWMB_VECTOR     27   ///< 0xDB PWMB
+#define TKSU_VECTOR     35   ///< 0x11B Touch Key Start Up
+#define RTC_VECTOR      36   ///< 0x123 RTC
 
 // XData SFR Switch
 #define SFRX_ON()             (PSW2 |= 0x80)
